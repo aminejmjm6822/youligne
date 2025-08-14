@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}{{ car.name }} · CarRental{% endblock %}
+{% block content %}
+	<article class="card">
+		<img src="{{ car.image_url or url_for('static', filename='img/placeholder.svg') }}" alt="{{ car.name }}" />
+		<div class="content">
+			<h1>{{ car.name }}</h1>
+			<p>{{ '%.2f'|format(car.daily_price) }} €/jour · {{ car.seats }} places · {{ car.transmission }}</p>
+			{% if current_user.is_authenticated %}
+				<h3>Réserver</h3>
+				<form method="post" action="{{ url_for('bookings.create', car_id=car.id) }}" class="form">
+					{{ form.hidden_tag() }}
+					<div class="field">
+						{{ form.start_date.label }}
+						{{ form.start_date(type='date') }}
+					</div>
+					<div class="field">
+						{{ form.end_date.label }}
+						{{ form.end_date(type='date') }}
+					</div>
+					<button class="btn" type="submit">{{ form.submit.label.text }}</button>
+				</form>
+			{% else %}
+				<p><a class="btn" href="{{ url_for('auth.login') }}">Connectez-vous pour réserver</a></p>
+			{% endif %}
+		</div>
+	</article>
+{% endblock %}

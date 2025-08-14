@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>{% block title %}Car Rental{% endblock %}</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+	<nav class="navbar">
+		<div class="container">
+			<a href="{{ url_for('cars.list_cars') }}" class="brand">CarRental</a>
+			<ul class="nav">
+				<li><a href="{{ url_for('cars.list_cars') }}">Accueil</a></li>
+				{% if current_user.is_authenticated %}
+					<li><a href="{{ url_for('bookings.mine') }}">Mes réservations</a></li>
+					{% if current_user.is_admin %}
+						<li><a href="{{ url_for('cars.add') }}">Ajouter une voiture</a></li>
+					{% endif %}
+					<li><a href="{{ url_for('auth.logout') }}">Se déconnecter</a></li>
+				{% else %}
+					<li><a href="{{ url_for('auth.login') }}">Connexion</a></li>
+					<li><a href="{{ url_for('auth.register') }}">Inscription</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</nav>
+
+	<main class="container">
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				<div class="flashes">
+					{% for category, message in messages %}
+						<div class="flash {{ category }}">{{ message }}</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+		{% endwith %}
+
+		{% block content %}{% endblock %}
+	</main>
+
+	<footer class="footer">
+		<div class="container">© {{ config.SITE_NAME or 'CarRental' }} — {{ 2025 }}</div>
+	</footer>
+</body>
+</html>

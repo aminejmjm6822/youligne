@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Connexion · CarRental{% endblock %}
+{% block content %}
+	<h1>Connexion</h1>
+	<form method="post" class="form">
+		{{ form.hidden_tag() }}
+		<div class="field">
+			{{ form.email.label }}
+			{{ form.email(size=32) }}
+		</div>
+		<div class="field">
+			{{ form.password.label }}
+			{{ form.password(size=32) }}
+		</div>
+		<div class="field">
+			<label>{{ form.remember() }} Se souvenir de moi</label>
+		</div>
+		{{ form.submit(class_='btn') }}
+	</form>
+{% endblock %}
