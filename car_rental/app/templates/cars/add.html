@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Ajouter une voiture · CarRental{% endblock %}
+{% block content %}
+	<h1>Ajouter une voiture</h1>
+	<form method="post" class="form">
+		{{ form.hidden_tag() }}
+		<div class="field">
+			{{ form.brand.label }}
+			{{ form.brand(size=32) }}
+		</div>
+		<div class="field">
+			{{ form.model.label }}
+			{{ form.model(size=32) }}
+		</div>
+		<div class="field">
+			{{ form.daily_price.label }}
+			{{ form.daily_price(step='0.5') }}
+		</div>
+		<div class="field">
+			{{ form.seats.label }}
+			{{ form.seats() }}
+		</div>
+		<div class="field">
+			{{ form.transmission.label }}
+			{{ form.transmission(size=32) }}
+		</div>
+		<div class="field">
+			{{ form.image_url.label }}
+			{{ form.image_url(size=64) }}
+		</div>
+		{{ form.submit(class_='btn') }}
+	</form>
+{% endblock %}

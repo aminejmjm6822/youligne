@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Inscription · CarRental{% endblock %}
+{% block content %}
+	<h1>Créer un compte</h1>
+	<form method="post" class="form">
+		{{ form.hidden_tag() }}
+		<div class="field">
+			{{ form.name.label }}
+			{{ form.name(size=32) }}
+		</div>
+		<div class="field">
+			{{ form.email.label }}
+			{{ form.email(size=32) }}
+		</div>
+		<div class="field">
+			{{ form.password.label }}
+			{{ form.password(size=32) }}
+		</div>
+		<div class="field">
+			{{ form.confirm.label }}
+			{{ form.confirm(size=32) }}
+		</div>
+		{{ form.submit(class_='btn') }}
+	</form>
+{% endblock %}

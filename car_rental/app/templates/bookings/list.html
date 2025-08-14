@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Mes réservations · CarRental{% endblock %}
+{% block content %}
+	<h1>Mes réservations</h1>
+	<div class="grid">
+		{% for b in bookings %}
+			<div class="card">
+				<div class="content">
+					<h3>{{ b.car.name }}</h3>
+					<p>Du {{ b.start_date.strftime('%d/%m/%Y') }} au {{ b.end_date.strftime('%d/%m/%Y') }}</p>
+					<p>Total: {{ '%.2f'|format(b.total_price) }} €</p>
+					<form method="post" action="{{ url_for('bookings.cancel', booking_id=b.id) }}">
+						<button type="submit" class="btn danger">Annuler</button>
+					</form>
+				</div>
+			</div>
+		{% else %}
+			<p>Vous n’avez pas encore de réservations.</p>
+		{% endfor %}
+	</div>
+{% endblock %}
